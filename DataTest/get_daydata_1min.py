@@ -1,4 +1,6 @@
+# -*- coding: UTF-8 -*-
 import os
+import sys
 import time
 import iso8601
 import datetime
@@ -25,8 +27,14 @@ def server_time():
 
 
 def get_moduel_path(file_path):
-    module_path = os.path.dirname(__file__)  # 获取项目地址
-    file_path = module_path + '/' + file_path      # 合成存储路径（项目地址 + 指定目录 + 文件名称）
+
+    # 判断是否使用pyinstaller打包程序
+    if hasattr(sys, 'frozen'):
+        module_path = os.path.dirname(sys.executable)  # 获取打包项目地址
+    else:
+        module_path = os.path.dirname(__file__)  # 获取项目地址
+
+    file_path = module_path + '/' + file_path   # 合成存储路径（项目地址 + 指定目录 + 文件名称）
     return file_path
 
 
